@@ -20,28 +20,6 @@ function MostraAnuncios()
     }).catch (function(err) {console.error(err);});
 }
 
-function MostraAnunciosNA()
-{   
-    const URL_TO_FETCH='consultaranunciona?filtro=';
-       
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
-    {
-        response.json().then(function(result)  //response é um promisse
-        {
-            //let resultjson=JSON.parse(result);
-            // result contém a resposta do módulo dinâmico
-            let tbody="";
-            console.log(result)
-            for (let anuncio of result)
-            {
-                tbody+=`<tr><td>${anuncio.conteudo}</td><td>${anuncio.produto}</td><td>${anuncio.categoria.nome}</td><td>${anuncio.usuario.nome}</td>
-                        <td onclick='fotosEnvia(${anuncio.id})'><img src='icones/alterar.png'/></td></tr>`;
-            }
-            document.getElementById('preview').innerHTML = tbody;
-        });
-    }).catch (function(err) {console.error(err);});
-}
-
 function fotosEnvia(id){
     let formulario = "";
     formulario+=`<p class="form-group form-group-lg">
