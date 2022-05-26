@@ -18,12 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.JWTTokenProvider;
 
-@WebServlet(name = "consultaranuncio", urlPatterns = {"/consultaranuncio"})
+/**
+ *
+ * @author Aluno
+ */
+@WebServlet(name = "consultaranunciona", urlPatterns = {"/consultaranunciona"})
+public class consultaranunciona extends HttpServlet {
 
-public class consultaranuncio extends HttpServlet {
-    public String buscaAnuncios(String filtro) {
+      public String buscaAnuncios(String filtro) {
         String res = "";
-        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioAprovado(filtro);
+        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioNAprovado(filtro);
         Gson gson = new Gson();
         res = gson.toJson(anu);
         return res;

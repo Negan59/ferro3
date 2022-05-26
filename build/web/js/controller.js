@@ -16,6 +16,51 @@ function MostraAnuncios()
                         <td onclick='fotosEnvia(${anuncio.id})'><img src='icones/alterar.png'/></td></tr>`;
             }
             document.getElementById('preview').innerHTML = tbody;
+            
+        });
+    }).catch (function(err) {console.error(err);});
+}
+
+function mudaStatus(id){
+    const URL_TO_FETCH='autorizar?id='+id;
+    fetch(URL_TO_FETCH, { method: 'post' 
+    }).then(function (response) {
+        return response.text();
+    }).then(function (retorno) {
+        // result recebe a resposta do módulo dinâmico
+        if (retorno.startsWith('Erro')) // problemas ao alterar/gravar
+        {
+            document.getElementById('erromsg').innerHTML = retorno;
+            document.getElementById('erro').style.display = "block";
+        } else  // tudo OK, limpar o formulário
+        {          
+            MostraAnunciosNA();
+        }
+         
+    }).catch(function (error) {
+        console.error(error);
+    });
+    
+}
+
+function MostraAnunciosNA()
+{   
+    const URL_TO_FETCH='consultaranunciona?filtro=';
+       
+    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    {
+        response.json().then(function(result)  //response é um promisse
+        {
+            //let resultjson=JSON.parse(result);
+            // result contém a resposta do módulo dinâmico
+            let tbody="";
+            console.log(result)
+            for (let anuncio of result)
+            {
+                tbody+=`<tr><td>${anuncio.conteudo}</td><td>${anuncio.produto}</td><td>${anuncio.categoria.nome}</td><td>${anuncio.usuario.nome}</td>
+                        <td onclick='mudaStatus(${anuncio.id})'><img src='icones/alterar.png'/></td></tr>`;
+            }
+            document.getElementById('preview').innerHTML = tbody;
         });
     }).catch (function(err) {console.error(err);});
 }

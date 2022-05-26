@@ -63,12 +63,34 @@ public class DALAnuncio {
         return a;
     }
     
-    public ArrayList<Anuncio> getAnuncio(String filtro) {
+    public ArrayList<Anuncio> getAnuncioNAprovado(String filtro) {
         ArrayList<Anuncio> lista = new ArrayList();
-        String sql = "select * from anuncio";
+        String sql = "select * from anuncio where status Like 'R'";
         if (!filtro.isEmpty())
-            sql += " where " + filtro;
+            sql += " and"+ filtro;
         sql += " order by id";
+        System.out.println(sql);
+        Conexao con = new Conexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                lista.add(
+                        new Anuncio(rs.getInt("id"), rs.getString("conteudo"),rs.getDate("data_postagem").toLocalDate(),rs.getString("produto"),new DALCategoria().getCategoria(rs.getInt("id_categoria")),rs.getString("foto1"),rs.getString("foto2"),rs.getString("foto3"),rs.getString("status"),new DALUsuario().getUsuarioUnico(rs.getString("doc_usuario"))));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.fecharConexao();
+        return lista;
+    }
+    
+    
+    public ArrayList<Anuncio> getAnuncioAprovado(String filtro) {
+        ArrayList<Anuncio> lista = new ArrayList();
+        String sql = "select * from anuncio where status LIKE 'A' ";
+        if (!filtro.isEmpty())
+            sql += "and"+filtro ;
+        sql += " order by id";
+        System.out.println(sql);
         Conexao con = new Conexao();
         ResultSet rs = con.consultar(sql);
         try {
