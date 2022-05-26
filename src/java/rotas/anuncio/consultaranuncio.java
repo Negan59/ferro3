@@ -23,7 +23,7 @@ import util.JWTTokenProvider;
 public class consultaranuncio extends HttpServlet {
     public String buscaAnuncios(String filtro) {
         String res = "";
-        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioAprovado(filtro);
+        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncio(filtro);
         Gson gson = new Gson();
         res = gson.toJson(anu);
         return res;
