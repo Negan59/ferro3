@@ -39,6 +39,7 @@ public class gravaranuncio extends HttpServlet {
         LocalDate data = LocalDate.now();
         String status = "R";
         String p = request.getParameter("produto");
+        String t = request.getParameter("titulo");
         Usuario u = new DALUsuario().getUsuarioUnico(request.getParameter("doc_usuario"));
         Categoria cat = new DALCategoria().getCategoria(Integer.parseInt(request.getParameter("categoria")));
         DALAnuncio dal = new DALAnuncio();
@@ -47,7 +48,7 @@ public class gravaranuncio extends HttpServlet {
         String token = JWTTokenProvider.getToken(usu, "adm");
         String valida = JWTTokenProvider.validarToken(token);
         
-        Anuncio anu = new Anuncio(conteudo, data, p, cat, "", "", "", status, u);
+        Anuncio anu = new Anuncio(conteudo, data, p, cat, "", "", "", status, u,t);
         if(valida == "ok"){
             if (!dal.salvar(anu)) {
                 erro = "Erro ao gravar anuncio";

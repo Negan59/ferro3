@@ -15,8 +15,30 @@ public class Anuncio {
     private String foto3;
     private String status;
     private Usuario usuario;
+    private String titulo;
 
-    public Anuncio(int id, String conteudo, LocalDate dataPostagem, String produto, Categoria categoria, String foto1, String foto2, String foto3, String status, Usuario usuario) {
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Anuncio(String conteudo, LocalDate dataPostagem, String produto, Categoria categoria, String foto1, String foto2, String foto3, String status, Usuario usuario, String titulo) {
+        this.conteudo = conteudo;
+        this.dataPostagem = dataPostagem;
+        this.produto = produto;
+        this.categoria = categoria;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
+        this.foto3 = foto3;
+        this.status = status;
+        this.usuario = usuario;
+        this.titulo = titulo;
+    }
+
+    public Anuncio(int id, String conteudo, LocalDate dataPostagem, String produto, Categoria categoria, String foto1, String foto2, String foto3, String status, Usuario usuario, String titulo) {
         this.id = id;
         this.conteudo = conteudo;
         this.dataPostagem = dataPostagem;
@@ -27,19 +49,10 @@ public class Anuncio {
         this.foto3 = foto3;
         this.status = status;
         this.usuario = usuario;
+        this.titulo = titulo;
     }
+
     
-     public Anuncio(String conteudo, LocalDate dataPostagem, String produto, Categoria categoria, String foto1, String foto2,String foto3, String status, Usuario usuario) {
-        this.conteudo = conteudo;
-        this.dataPostagem = dataPostagem;
-        this.produto = produto;
-        this.categoria = categoria;
-        this.foto1 = foto1;
-        this.foto2 = foto2;
-        this.foto3 = foto3;
-        this.status = status;
-        this.usuario = usuario;
-    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -124,5 +137,6 @@ public class Anuncio {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
 
 }
