@@ -1,6 +1,8 @@
 
 package rotasteste;
 
+import bd.dal.DALUsuario;
+import bd.entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +20,14 @@ public class Autenticar extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
            String usuario=request.getParameter("usuario");
            String senha=request.getParameter("senha");
-           
-           
-           String token = JWTTokenProvider.getToken(usuario, "adm");
-           out.print(token);
+           Usuario u = new DALUsuario().getUsuarioUnico(usuario);
+           if(senha.equals(u.getSenha())){
+                String token = JWTTokenProvider.getToken(usuario,senha,u);
+                out.print(token);
+           }
+           else{
+               out.print("Erro Login falhou");
+           }
            
            
            

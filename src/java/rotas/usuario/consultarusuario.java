@@ -29,7 +29,7 @@ public class consultarusuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/json;charset=UTF-8");
         String usuario=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usuario, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try (PrintWriter out = response.getWriter()) {
             if(valida == "ok"){

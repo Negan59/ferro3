@@ -23,7 +23,7 @@ public class buscarusuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String documento;
         String usuario=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usuario, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try {
             documento = (request.getParameter("documento"));

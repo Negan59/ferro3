@@ -45,7 +45,7 @@ public class gravaranuncio extends HttpServlet {
         DALAnuncio dal = new DALAnuncio();
         String erro = "Sucesso";
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         
         Anuncio anu = new Anuncio(conteudo, data, p, cat, "", "", "", status, u,t);

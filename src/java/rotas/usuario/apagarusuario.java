@@ -29,8 +29,7 @@ public class apagarusuario extends HttpServlet {
         response.setContentType("text/json;charset=UTF-8");
         System.out.println("entra no apagar?");
         String documento;
-        String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try {
             documento = (request.getParameter("documento"));

@@ -27,7 +27,7 @@ public class consultarmensagem extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try (PrintWriter out = response.getWriter()) {
             String filtro = request.getParameter("filtro");

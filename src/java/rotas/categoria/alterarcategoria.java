@@ -25,7 +25,7 @@ public class alterarcategoria extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String erro = "Sucesso";
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         int id = 0;
         try {

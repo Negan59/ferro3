@@ -21,7 +21,7 @@ public class apagaranuncio extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int id;
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try (PrintWriter out = response.getWriter()) {
             id = Integer.parseInt(request.getParameter("id"));

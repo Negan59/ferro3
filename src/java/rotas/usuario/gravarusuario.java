@@ -115,8 +115,7 @@ public class gravarusuario extends HttpServlet {
                 if (senha.equals(csenha) && senha.length()>5) {
                     if(!datanascimento.isAfter(dataatual) && !datanascimento.isBefore(datalimite) ){
                     Usuario usuario = new Usuario(documento, genero, estado, nome, tipo_usuario, endereco, datanascimento, senha, email);
-                    String usu = request.getParameter("usuario");
-                    String token = JWTTokenProvider.getToken(usu, "adm");
+                    String token=request.getParameter("token");
                     String valida = JWTTokenProvider.validarToken(token);
                     if (valida == "ok") {
                         if (!dal.salvar(usuario)) {

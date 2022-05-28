@@ -42,7 +42,7 @@ public class gravarmensagem extends HttpServlet {
         String erro = "Sucesso";
         
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         Mensagem m = new Mensagem(anun,u,conteudo, d,mens);
         System.out.println("id_anuncio : "+m.getAnuncio().getId());

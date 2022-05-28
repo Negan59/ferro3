@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head onload="geraCabecalho()">
         <title>Mercado Fipp</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,50 +8,26 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/anuncioController.js" type="text/javascript"></script>
+        <script src="js/Header.js" type="text/javascript"></script>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <div class="navbar-brand" style="vertical-align: middle">MercadoFipp
+                    <div class="navbar-brand" style="vertical-align: middle">MercadoFipp
+                    </div>
+                    <a class="navbar-brand" href="#">
+                        <img src="https://i.imgur.com/N4rg03m.png" alt="" width="80" height="80" class="d-inline-block align-text-top">
+                    </a>
+                </div>
+        <div class="container-fluid" >
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" id="header" name="header">
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categoria
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="mcategoria">
 
-            </div>
-            <a class="navbar-brand" href="#">
-                <img src="https://i.imgur.com/N4rg03m.png" alt="" width="80" height="80" class="d-inline-block align-text-top">
-            </a>
-
-        </div>
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Cadastrar
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="cadastroUsuario.html">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="cadastroCategoria.html">Categorias</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="meusAnuncios.html">Meus anúncios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="aprovarAnuncio.html">Aprovar anúncio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categoria
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="mcategoria">
-
-                        </ul>
-                    </li>
-                    
-                </ul>
+                    </ul>
+                </li>
                 <form class="d-flex">
                     <input class="form-control me-2" type="text" placeholder="Busca" aria-label="Busca" name="filtro" id="filtro">
                 </form>

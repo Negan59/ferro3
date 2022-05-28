@@ -61,7 +61,7 @@ public class gravararquivo extends HttpServlet {
         String erro = "sucesso";
         int id;
         String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
+        String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         System.out.println("gravar arquivo");
         try {
