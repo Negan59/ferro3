@@ -9,12 +9,16 @@ public class Usuario {
     private String documento;
     private String genero, estado, nome, tipo_usuario, endereco;
     private LocalDate datanascimento;
+    private String senha;
+    private String email;
+
+    
 
     /*public Usuario(){
         this(0, "", "", "", "", "", LocalDate.now());
     }*/
-    
-    public Usuario(String documento, String genero, String estado, String nome, String tipo_usuario, String endereco, LocalDate datanascimento) {
+
+    public Usuario(String documento, String genero, String estado, String nome, String tipo_usuario, String endereco, LocalDate datanascimento, String senha, String email) {
         this.documento = documento;
         this.genero = genero;
         this.estado = estado;
@@ -22,15 +26,32 @@ public class Usuario {
         this.tipo_usuario = tipo_usuario;
         this.endereco = endereco;
         this.datanascimento = datanascimento;
+        this.senha = senha;
+        this.email = email;
+    }
+    
+    public LocalDate getDatanascimento() {
+        return datanascimento;
     }
 
-    public Usuario(String genero, String estado, String nome, String tipo_usuario, String endereco, LocalDate datanascimento) {
-        this.genero = genero;
-        this.estado = estado;
-        this.nome = nome;
-        this.tipo_usuario = tipo_usuario;
-        this.endereco = endereco;
+    public void setDatanascimento(LocalDate datanascimento) {
         this.datanascimento = datanascimento;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     public String getDocumento() {

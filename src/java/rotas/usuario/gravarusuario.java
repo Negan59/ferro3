@@ -31,29 +31,36 @@ public class gravarusuario extends HttpServlet {
         String nome = request.getParameter("nome");
         String tipo_usuario = request.getParameter("tipo_usuario");
         String endereco = request.getParameter("endereco");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String csenha = request.getParameter("csenha");
         LocalDate datanascimento = LocalDate.parse(request.getParameter("datanascimento"));
                 
         DALUsuario dal=new DALUsuario();
         String erro="Sucesso";
-        Usuario usuario = new Usuario(documento, genero, estado, nome, tipo_usuario, endereco, datanascimento);
-        String usu=request.getParameter("usuario");
-        String token = JWTTokenProvider.getToken(usu, "adm");
-        String valida = JWTTokenProvider.validarToken(token);
-        System.out.println(usuario.getDocumento());
-        System.out.println(usuario.getGenero());
-        System.out.println(usuario.getEstado());
-        System.out.println(usuario.getNome());
-        System.out.println(usuario.getTipo_usuario());
-        System.out.println(usuario.getEndereco());
-        System.out.println(usuario.getDataNascimento());
-        
-        if(valida == "ok"){
+        if(senha.equals(csenha)){
+            Usuario usuario = new Usuario(documento, genero, estado, nome, tipo_usuario, endereco, datanascimento,senha,email);
+            String usu = request.getParameter("usuario");
+            String token = JWTTokenProvider.getToken(usu, "adm");
+            String valida = JWTTokenProvider.validarToken(token);
+            System.out.println(usuario.getDocumento());
+            System.out.println(usuario.getGenero());
+            System.out.println(usuario.getEstado());
+            System.out.println(usuario.getNome());
+            System.out.println(usuario.getTipo_usuario());
+            System.out.println(usuario.getEndereco());
+            System.out.println(usuario.getDataNascimento());
+
+            if (valida == "ok") {
                 if (!dal.salvar(usuario)) {
                     erro = "Erro ao gravar o usuario";
                 }
+            } else {
+                response.getWriter().print("não autorizado");
+            }
         }
         else{
-            response.getWriter().print("não autorizado");
+            erro = "Erro ao gravar o usuario, senhas não conferem";
         }
         response.getWriter().print(erro);
     }

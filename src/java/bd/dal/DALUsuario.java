@@ -10,7 +10,7 @@ public class DALUsuario {
     
     //int documento, String genero, String id_estado, String nome, String tipo_usuario, String endereco, LocalTime dataNascimento
     public boolean salvar(Usuario u) {
-        String sql = "insert into usuario (documento, genero, estado, nome, tipo_usuario, endereco, datanascimento) values ('$1','$2','$3','$4','$5','$6','$7')";
+        String sql = "insert into usuario (documento, genero, estado, nome, tipo_usuario, endereco, datanascimento,senha,email) values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
         sql = sql.replace("$1", u.getDocumento()); //usar id? insere documento aqui?
         sql = sql.replace("$2", u.getGenero());
         sql = sql.replace("$3", u.getEstado()); //??? id estado?
@@ -18,6 +18,8 @@ public class DALUsuario {
         sql = sql.replace("$5", u.getTipo_usuario());
         sql = sql.replace("$6", u.getEndereco());
         sql = sql.replace("$7", "" + u.getDataNascimento());
+        sql = sql.replace("$8",u.getSenha());
+        sql = sql.replace("$9",u.getEmail());
         System.out.println(sql);
         Conexao con = new Conexao();
         boolean flag = con.manipular(sql);
@@ -26,13 +28,15 @@ public class DALUsuario {
     }
     
     public boolean alterar(Usuario u) {
-        String sql = "update usuario set genero = '$1', estado = '$2', nome = '$3',tipo_usuario = '$4',endereco = '$5', datanascimento = '$6' where documento like " + u.getDocumento();
+        String sql = "update usuario set genero = '$1', estado = '$2', nome = '$3',tipo_usuario = '$4',endereco = '$5', datanascimento = '$6',senha = '$7', email = '$8 where documento like " + u.getDocumento();
         sql = sql.replace("$1", u.getGenero());
         sql = sql.replace("$2", u.getEstado());
         sql = sql.replace("$3", u.getNome());
         sql = sql.replace("$4", u.getTipo_usuario());
         sql = sql.replace("$5", u.getEndereco());
         sql = sql.replace("$6", "" + u.getDataNascimento());
+        sql = sql.replace("$7",u.getSenha());
+        sql = sql.replace("$8",u.getEmail());
         Conexao con = new Conexao();
         boolean flag = con.manipular(sql);
         con.fecharConexao();
@@ -52,7 +56,7 @@ public class DALUsuario {
         ResultSet rs = con.consultar(sql);
         try {
             if (rs.next())
-                u = new Usuario(rs.getString("documento"), rs.getString("genero"), rs.getString("estado"), rs.getString("nome"), rs.getString("tipo_usuario"), rs.getString("endereco"), rs.getDate("datanascimento").toLocalDate());
+                u = new Usuario(rs.getString("documento"), rs.getString("genero"), rs.getString("estado"), rs.getString("nome"), rs.getString("tipo_usuario"), rs.getString("endereco"), rs.getDate("datanascimento").toLocalDate(),rs.getString("senha"),rs.getString("email"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -71,7 +75,7 @@ public class DALUsuario {
         try {
             while (rs.next())
                 lista.add(
-                        new Usuario(rs.getString("documento"), rs.getString("genero"), rs.getString("estado"), rs.getString("nome"), rs.getString("tipo_usuario"), rs.getString("endereco"), rs.getDate("datanascimento").toLocalDate()));
+                        new Usuario(rs.getString("documento"), rs.getString("genero"), rs.getString("estado"), rs.getString("nome"), rs.getString("tipo_usuario"), rs.getString("endereco"), rs.getDate("datanascimento").toLocalDate(),rs.getString("senha"),rs.getString("email")));
         } catch (Exception e) {
             System.out.println(e);
         }

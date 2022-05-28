@@ -57,7 +57,7 @@ function MostraUsuarios()
             console.log(result)
             for (let usuario of result)
             {
-                tbody+=`<tr><td>${usuario.documento}</td><td>${usuario.nome}</td><td>${usuario.genero}</td><td>${usuario.tipo_usuario}</td><td>${usuario.datanascimento.day}/${usuario.datanascimento.month}/${usuario.datanascimento.year}</td><td>${usuario.endereco}</td><td>${usuario.estado}</td>
+                tbody+=`<tr><td>${usuario.documento}</td><td>${usuario.email}</td><td>${usuario.nome}</td><td>${usuario.genero}</td><td>${usuario.tipo_usuario}</td><td>${usuario.datanascimento.day}/${usuario.datanascimento.month}/${usuario.datanascimento.year}</td><td>${usuario.endereco}</td><td>${usuario.estado}</td>
                         <td onclick='AlteraUsuario(${usuario.documento})'><img src='icones/alterar.png'/></td>
                         <td onclick='ApagarUsuario(${usuario.documento})'><img src='icones/apagar.png'/></td></tr>`;
             }
@@ -68,7 +68,7 @@ function MostraUsuarios()
 
 function GravaUsuario()
 {
-    //event.preventDefault(); // evita refresh da tela
+    event.preventDefault(); // evita refresh da tela
 
     const URL_TO_FETCH = 'gravarusuario';
     
@@ -81,6 +81,8 @@ function GravaUsuario()
     }).then(function (response) {
         return response.text();
     }).then(function (retorno) {
+        console.log(retorno)
+        window.alert("para")
         // result recebe a resposta do módulo dinâmico
         if (retorno.startsWith('Erro')) // problemas ao alterar/gravar
         {
@@ -247,4 +249,4 @@ function AlterarCategoria(id)
             }
         });
     }).catch (function(err) {console.error(err);});
-}
+}    
