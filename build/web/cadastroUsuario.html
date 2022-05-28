@@ -68,7 +68,7 @@
                 <div>
                     <p class="form-group form-group-lg">
                         <label>CPF: </label>
-                        <input OnChange="mascaraCPF()" onsubmit="validarCpf()"  id="documento" name="documento" type="text"  value="" class="form-control" required/>
+                        <input OnChange="mascaraCPF()" onsubmit="validarCpf()"  id="documento" name="documento" type="text"  value="" class="form-control" maxlength="11" required/>
                     </p>
                     <p>
                         <label>Nome: </label>
@@ -80,11 +80,11 @@
                     </p>
                     <p>
                         <label>Senha: </label>
-                        <input id="senha" name="senha" type="password" value="" class="form-control" required/>
+                        <input id="senha" name="senha" type="password" value="" class="form-control" minlength="6" required/>
                     </p>
                     <p>
                         <label>Confirmar senha: </label>
-                        <input id="csenha" name="csenha" type="password" value="" class="form-control" required/>
+                        <input id="csenha" name="csenha" type="password" value="" class="form-control" minlength="6" required/>
                     </p>
                     <p>
                         <label>Sexo: </label>
