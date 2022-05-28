@@ -111,7 +111,7 @@ public class gravarusuario extends HttpServlet {
         DALUsuario dal = new DALUsuario();
         String erro = "Sucesso";
         if (isCPF(documento)) {
-            if (nome.matches("[A-Z][a-z]* [A-Z][a-z]*")) {
+            if (nome.matches("[[A-Z][a-z]* ]*")) {
                 if (senha.equals(csenha) && senha.length()>5) {
                     if(!datanascimento.isAfter(dataatual) && !datanascimento.isBefore(datalimite) ){
                     Usuario usuario = new Usuario(documento, genero, estado, nome, tipo_usuario, endereco, datanascimento, senha, email);
