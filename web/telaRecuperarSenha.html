@@ -72,7 +72,7 @@
                 <strong>Erro!</strong> <span id="erromsg"></span>
             </div>
             
-            <form name="fsenha" id="fsenha" onsubmit="return confirmarUsuario(this);">
+            <form onsubmit="return cadastro();" name="fsenha" id="fsenha" onsubmit="return confirmarUsuario(this);">
                 <div>
                     <p>
                         <label>E-mail: </label>
@@ -80,10 +80,16 @@
                     </p>
 
                     <p>
-                        <button onclick="" class="form-control  mb-2 mr-sm-2 btn btn-primary">Enviar senha</button> <!--?????-->
+                        <button class="form-control  mb-2 mr-sm-2 btn btn-primary">Enviar senha</button> <!--?????-->
                     </p>
                 </div>
             </form>
+            <div >
+                <span>
+                    <h3>E-mail enviado</h3>
+                    <p>Caso exista uma conta com o e-mail informado vamos enviar um e-mail com as instruções e o link para você trocar a senha. se você não receber o e-mail em alguns minutos, verifique a sua caixa de spam ou tente novamente.</p>
+                </span>
+            </div>
             
             <a href="login.html">VOLTAR</a>
         </div>

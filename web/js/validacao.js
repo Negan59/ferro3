@@ -41,3 +41,7 @@ function confirmarUsuario(formulario) {
     
 
 }
+
+function cadastro(){
+  alert('Caso exista uma conta com o e-mail informado vamos enviar um e-mail com as instruções e o link para você trocar a senha. Se você não receber o e-mail em alguns minutos, verifique a sua caixa de spam ou tente novamente.');
+}
