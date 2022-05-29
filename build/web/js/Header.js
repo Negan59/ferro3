@@ -12,11 +12,10 @@ function geraCabecalho(){
        {
            response.json().then(function(result)  //response é um promisse
            {
-               tipo = result
+               localStorage("tipo",result)
            });
        }).catch (function(err) {console.error(err);});
-      
-                if(tipo === "admin"){
+                if(localStorage.getItem("tipo") === "admin"){
                    header+= `<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cadastrar
@@ -27,13 +26,13 @@ function geraCabecalho(){
                         </ul>
                     </li>`
                 }
-                if(tipo === "admin" || tipo === "vendedor"){
+                if(tipo === "admin" || localStorage.getItem("tipo") === "vendedor"){
                     header+= `<li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="meusAnuncios.html">Meus anúncios</a>
                     </li>`;
                     posta()
                 }
-                if(tipo === "admin"){
+                if(localStorage.getItem("tipo") === "admin"){
                     header+= `<li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="aprovarAnuncio.html">Aprovar anúncio</a>
                     </li>`
@@ -57,6 +56,36 @@ function posta(){
     botaopostar+=`<br>
         <button type="button" class="btn btn-outline-primary"  href="cadastroAnuncio.html"><a href="cadastroAnuncio.html">Novo anúncio</a></button>`;
         document.getElementById('botaopostar').innerHTML = botaopostar;
+}
+
+function carregarLogin(){
+    let login = ""
+    const URL_TO_FETCH='buscanome?token='+ localStorage.getItem("token");
+    if(localStorage.getItem("token") === null){
+        login+=`<div class="login-userimg" >
+                        <a href="login.html">
+                        <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário" />
+                        Faça Login
+                        </a>
+                    </div>`
+    }
+    else{
+        fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+       {
+           response.json().then(function(result)  //response é um promisse
+           {
+               localStorage("nome",result)
+           });
+       }).catch (function(err) {console.error(err);});
+       login+=`<div class="login-userimg" >
+                        <a href="login.html">
+                        <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário" />
+                        ${localStorage.getItem("nome")}
+                        </a>
+                    </div>`
+        
+    }
+    document.getElementById('login').innerHTML = login;
 }
 
 

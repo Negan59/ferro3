@@ -1,6 +1,6 @@
 function MostraAnuncios()
 {   
-    const URL_TO_FETCH='listaranuncio?doc_usuario='+"'46339689809'";
+    const URL_TO_FETCH='listaranuncio?&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -22,7 +22,7 @@ function MostraAnuncios()
 }
 
 function mudaStatus(id){
-    const URL_TO_FETCH='autorizar?id='+id;
+    const URL_TO_FETCH='autorizar?id='+id+'&token='+localStorage.getItem("token");
     fetch(URL_TO_FETCH, { method: 'post' 
     }).then(function (response) {
         return response.text();
@@ -45,7 +45,7 @@ function mudaStatus(id){
 
 function MostraAnunciosNA()
 {   
-    const URL_TO_FETCH='consultaranunciona?filtro=';
+    const URL_TO_FETCH='consultaranunciona?filtro='+'&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -93,7 +93,7 @@ function fotosEnvia(id){
 }
 
 function envia(id){
-    const URL_TO_FETCH = 'gravararquivo?id='+id;
+    const URL_TO_FETCH = 'gravararquivo?id='+id+'&token='+localStorage.getItem("token");
     
     /*const data = new URLSearchParams();
     for (const pair of new FormData(document.getElementById('fotos'))) {

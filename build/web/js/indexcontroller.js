@@ -45,7 +45,7 @@ function listarcategorias()
 function MostraUsuarios()
 {   
     var filtro=document.getElementById("filtro").value; // verifica o filtro
-    const URL_TO_FETCH='consultarusuario?filtro='+filtro;
+    const URL_TO_FETCH='consultarusuario?filtro='+filtro+'&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -70,7 +70,7 @@ function GravaUsuario()
 {
     event.preventDefault(); // evita refresh da tela
 
-    const URL_TO_FETCH = 'gravarusuario';
+    const URL_TO_FETCH = 'gravarusuario?token = '+localStorage.getItem("token");
     
     const data = new URLSearchParams();
     for (const pair of new FormData(document.getElementById('fusuarios'))) {
@@ -102,7 +102,7 @@ function GravaUsuario()
 
 function AlteraUsuario(documento)
 {   
-    let url = "buscarusuario?documento=" + documento;
+    let url = "buscarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -134,7 +134,7 @@ function AlteraUsuario(documento)
 
 function ApagarUsuario(documento)
 {   console.log(documento);
-    let url = "apagarusuario?documento=" + documento;
+    let url = "apagarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
       response.json().then(function(result)  //response é um promisse
@@ -155,7 +155,7 @@ function ApagarUsuario(documento)
 function MostraCategorias()
 {   
     var filtro=document.getElementById("filtro").value; // verifica o filtro
-    const URL_TO_FETCH='consultarcategoria?filtro='+filtro;
+    const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -179,7 +179,7 @@ function GravaCategoria()
 {
     //event.preventDefault(); // evita refresh da tela
 
-    const URL_TO_FETCH = 'incluircategoria';
+    const URL_TO_FETCH = 'incluircategoria?token='+localStorage.getItem("token");
     
     const data = new URLSearchParams();
     for (const pair of new FormData(document.getElementById('fcategorias'))) {
@@ -208,7 +208,7 @@ function GravaCategoria()
 
 function ApagarCategoria(id)
 {   
-    let url = "apagarcategoria?id=" + id;
+    let url = "apagarcategoria?id=" + id+'&token='+localStorage.getItem("token");
     console.log(url)
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
@@ -228,7 +228,7 @@ function ApagarCategoria(id)
 
 function AlterarCategoria(id)
 {   
-    let url = "buscarcategoria?id=" + id;
+    let url = "buscarcategoria?id=" + id+'&token='+localStorage.getItem("token");
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse

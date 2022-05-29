@@ -23,6 +23,7 @@ public class JWTTokenProvider {
             .setIssuer("localhost:8080")
             .claim("tipo_usuario",u.getTipo_usuario())
             .claim("documento", u.getDocumento())
+            .claim("nome", u.getNome())
             .setIssuedAt(new Date())
             .setExpiration(Date.from(LocalDateTime.now().plusDays(1).atZone(ZoneId.systemDefault()).toInstant()))
             .signWith(CHAVE)
