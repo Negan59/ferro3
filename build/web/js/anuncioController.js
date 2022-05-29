@@ -4,13 +4,13 @@ function carregarAnuncios(inicio){
     paginacao()
     if(verifica !== null){
         var filtro=document.getElementById("filtro").value; // verifica o filtro
-        URL_TO_FETCH='consultaranuncio?filtro='+filtro+'&inicio='+inicio;
+        URL_TO_FETCH='consultaranuncio?filtro='+filtro+'&inicio='+localStorage.getItem("resultado")+'&token='+localStorage.getItem("token");
     }
     else{
         URL_TO_FETCH = 'consultar5anuncios';
         document.getElementById('carregaBotao').innerHTML = "";
+        document.getElementById('paginacao').innerHTML = "";
     }
-    window.alert(URL_TO_FETCH)
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -66,7 +66,7 @@ function carregarAnuncios(inicio){
 }
 
 function gravaAnuncio(){
-    const URL_TO_FETCH = 'gravaranuncio?doc_usuario='+'46339689809';
+    const URL_TO_FETCH = 'gravaranuncio?token='+localStorage.getItem("token");
     console.log(URL_TO_FETCH)
     const data = new URLSearchParams();
     for (const pair of new FormData(document.getElementById('fanuncios'))) {
@@ -97,7 +97,7 @@ function gravaAnuncio(){
 function MostraCategorias()
 {   
     var filtro=""; // verifica o filtro
-    const URL_TO_FETCH='consultarcategoria?filtro='+filtro;
+    const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -116,7 +116,7 @@ function MostraCategorias()
 }
 
 function anuncioCategoria(id){
-     const URL_TO_FETCH='consultaranunciocategoria?id='+id;
+     const URL_TO_FETCH='consultaranunciocategoria?id='+id+'&token='+localStorage.getItem("token");
      fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -173,7 +173,7 @@ function anuncioCategoria(id){
 function Categoria()
 {   
     var filtro=""; // verifica o filtro
-    const URL_TO_FETCH='consultarcategoria?filtro='+filtro;
+    const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
@@ -196,7 +196,6 @@ function paginacao(){
     const URL_TO_FETCH='contaranuncios';
     let anuncios = 0
     let pagina = ""
-    window.alert("teste")
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -213,6 +212,5 @@ function paginacao(){
      }
     
     pagina+=`</ul>`
-    console.log(pagina)
     document.getElementById('paginacao').innerHTML = pagina;
 }

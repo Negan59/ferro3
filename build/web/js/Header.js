@@ -1,14 +1,13 @@
 function geraCabecalho(){
     let header = "";
-    let token = localStorage.getItem("token")
     let tipo = ""
-     const URL_TO_FETCH='buscatipo?token='+ token;
+     const URL_TO_FETCH='buscatipo?token='+ localStorage.getItem("token");
      header +=   `<div class="collapse navbar-collapse" id="navbarSupportedContent" >
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>`;
-     if(token !== null){
+     if(localStorage.getItem("token") !== null){
         fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
        {
            response.json().then(function(result)  //response é um promisse
