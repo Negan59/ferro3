@@ -43,5 +43,21 @@ function confirmarUsuario(formulario) {
 }
 
 function cadastro(){
-  alert('Caso exista uma conta com o e-mail informado vamos enviar um e-mail com as instruções e o link para você trocar a senha. Se você não receber o e-mail em alguns minutos, verifique a sua caixa de spam ou tente novamente.');
+    alert('Caso exista uma conta com o e-mail informado vamos enviar um e-mail com as instruções e o link para você trocar a senha. Se você não receber o e-mail em alguns minutos, verifique a sua caixa de spam ou tente novamente.');
+    var senha = Math.random().toString(36).slice(-10);
+    var email = document.getElementById('email').value;
+    alert('Senha nova: ' + senha + '.');
+    /*
+    Email.send({
+        Host : "smtp.gmail.com",
+        Username : "mercadofipp@gmail.com",
+        Password : "Senha123",
+        To : email,
+        From : "mercadofipp@gmail.com",
+        Subject : "MercadoFIPP: senha nova",
+        Body : "Senha nova: " + senha + "."
+    }).then(
+      alert('LIXOOOOOOOOOOOOOOOOOOOO')
+    );*/
+
 }
