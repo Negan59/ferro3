@@ -37,3 +37,7 @@ function mascaraCPF() {
         }
     }
 
+function confirmarUsuario(formulario) {
+    
+
+}
