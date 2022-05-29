@@ -42,6 +42,22 @@ public class DALUsuario {
         con.fecharConexao();
         return flag;
     }
+    
+    public boolean alteraE(Usuario u) {
+        String sql = "update usuario set genero = '$1', estado = '$2', nome = '$3',tipo_usuario = '$4',endereco = '$5', datanascimento = '$6',senha = '$7' where email like " + u.getEmail();
+        sql = sql.replace("$1", u.getGenero());
+        sql = sql.replace("$2", u.getEstado());
+        sql = sql.replace("$3", u.getNome());
+        sql = sql.replace("$4", u.getTipo_usuario());
+        sql = sql.replace("$5", u.getEndereco());
+        sql = sql.replace("$6", "" + u.getDataNascimento());
+        sql = sql.replace("$7",u.getSenha());
+        Conexao con = new Conexao();
+        boolean flag = con.manipular(sql);
+        con.fecharConexao();
+        return flag;
+    }
+    
     public boolean apagar(String cod){
         Conexao con = new Conexao();
         System.out.println(cod);
@@ -52,6 +68,21 @@ public class DALUsuario {
     public Usuario getUsuarioUnico(String cod) {
         Usuario u = null;
         String sql = "select * from usuario where documento like '" + cod +"'";
+        Conexao con = new Conexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            if (rs.next())
+                u = new Usuario(rs.getString("documento"), rs.getString("genero"), rs.getString("estado"), rs.getString("nome"), rs.getString("tipo_usuario"), rs.getString("endereco"), rs.getDate("datanascimento").toLocalDate(),rs.getString("senha"),rs.getString("email"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.fecharConexao();
+        return u;
+    }
+    
+    public Usuario getUsuarioUnicoE(String cod) {
+        Usuario u = null;
+        String sql = "select * from usuario where email like '" + cod +"'";
         Conexao con = new Conexao();
         ResultSet rs = con.consultar(sql);
         try {

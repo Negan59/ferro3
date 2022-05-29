@@ -249,4 +249,4 @@ function AlterarCategoria(id)
             }
         });
     }).catch (function(err) {console.error(err);});
-}    
+}
