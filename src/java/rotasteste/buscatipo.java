@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package rotas.anuncio;
+package rotasteste;
 
-import bd.dal.DALAnuncio;
-import bd.entidades.Anuncio;
-import com.google.gson.Gson;
+import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,34 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.JWTTokenProvider;
 
-@WebServlet(name = "consultaranuncio", urlPatterns = {"/consultaranuncio"})
-
-public class consultaranuncio extends HttpServlet {
-    public String buscaAnuncios(String filtro,int inicio) {
-        String res = "";
-        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioAprovado(filtro,inicio);
-        Gson gson = new Gson();
-        res = gson.toJson(anu);
-        return res;
-    }
+/**
+ *
+ * @author gui
+ */
+@WebServlet(name = "buscatipo", urlPatterns = {"/buscatipo"})
+public class buscatipo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usu=request.getParameter("usuario");
-        int inicio = Integer.parseInt(request.getParameter("inicio"));
         String token=request.getParameter("token");
-        String valida = JWTTokenProvider.validarToken(token);
-        System.out.println(valida);
-        try (PrintWriter out = response.getWriter()) {
-            String filtro = request.getParameter("filtro");
-            if("ok".equals(valida)){
-                if (!filtro.isEmpty())
-                    filtro = "upper(conteudo) like '%" + filtro.toUpperCase() + "%'";
-                response.getWriter().print(buscaAnuncios(filtro,inicio));
-            }
-            else{
-                response.getWriter().print("não autorizado");
-            }
+        PrintWriter out = response.getWriter();
+        try{
+            Claims teste = new JWTTokenProvider().getAllClaimsFromToken(token);
+            System.out.println(teste.get("documento"));
+            out.print(teste.get("tipo_usuario"));
+        }catch(Exception e){
+            out.print("Erro");
         }
     }
 

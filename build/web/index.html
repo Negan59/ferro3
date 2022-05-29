@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head onload="geraCabecalho()">
+    <head>
         <title>Mercado Fipp</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,42 +17,47 @@
                         <img src="https://i.imgur.com/N4rg03m.png" alt="" width="80" height="80" class="d-inline-block align-text-top">
                     </a>
                 </div>
-        <div class="container-fluid" >
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" id="header" name="header">
+        <div class="container-fluid" id="header" name="header">
+            
                 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categoria
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="mcategoria">
+                
+                
+        </div>
+        <div id="carregaBotao">
+        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categoria
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="mcategoria">
 
-                    </ul>
-                </li>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Busca" aria-label="Busca" name="filtro" id="filtro">
-                </form>
-                <button onclick="carregarAnuncios()" class="btn btn-outline-success">Buscar</button>
-                <div class="loginContainer">
-                    <div class="login-userimg" href="login.html">
-                        <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário"/>
+                        </ul>
+        </li>
+        </div>
+        <div class="loginContainer">
+                    
+                    <div class="login-userimg" >
+                        <a href="login.html">
+                        <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário" />
                         Login provisório
+                        </a>
                     </div>
 
-                </div>
-            </div>
         </div>
     </nav>
 </head>
-<body onload="carregarAnuncios()">
-    <div class="container" style="text-align: center">
-        <br>
-        <button type="button" class="btn btn-outline-primary"  href="cadastroAnuncio.html"><a href="cadastroAnuncio.html">Novo anúncio</a></button>
-    </div>
-    <br>
-    <div  id="anuncio">
+<body onload="geraCabecalho();carregarAnuncios()">
+    <div class="container" style="text-align: center" id="botaopostar">
         
     </div>
-    
+    <br>
+    <div id="anuncio">
+        
+    </div>
+    <nav aria-label="Navegação de página exemplo">
+        <div id="paginacao">
+        
+        </div>
+    </nav>
     
 </body>
 <footer>

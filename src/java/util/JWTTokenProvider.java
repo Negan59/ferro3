@@ -44,7 +44,7 @@ public class JWTTokenProvider {
             return res;
         }
         
-        static public Claims getAllClaimsFromToken(String token) 
+        public Claims getAllClaimsFromToken(String token) 
         {
             Claims claims=null;
             try {

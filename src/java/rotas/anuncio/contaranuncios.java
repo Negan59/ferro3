@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rotas.anuncio;
 
 import bd.dal.DALAnuncio;
@@ -10,42 +6,31 @@ import bd.entidades.Anuncio;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import util.JWTTokenProvider;
+import util.Erro;
 
-@WebServlet(name = "consultaranuncio", urlPatterns = {"/consultaranuncio"})
 
-public class consultaranuncio extends HttpServlet {
-    public String buscaAnuncios(String filtro,int inicio) {
-        String res = "";
-        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioAprovado(filtro,inicio);
-        Gson gson = new Gson();
-        res = gson.toJson(anu);
-        return res;
-    }
+@WebServlet(name = "contaranuncios", urlPatterns = {"/contaranuncios"})
+public class contaranuncios extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usu=request.getParameter("usuario");
-        int inicio = Integer.parseInt(request.getParameter("inicio"));
-        String token=request.getParameter("token");
-        String valida = JWTTokenProvider.validarToken(token);
-        System.out.println(valida);
+        int help = 0;
         try (PrintWriter out = response.getWriter()) {
-            String filtro = request.getParameter("filtro");
-            if("ok".equals(valida)){
-                if (!filtro.isEmpty())
-                    filtro = "upper(conteudo) like '%" + filtro.toUpperCase() + "%'";
-                response.getWriter().print(buscaAnuncios(filtro,inicio));
-            }
-            else{
-                response.getWriter().print("não autorizado");
-            }
+            DALAnuncio dal = new DALAnuncio();
+            Erro erro = new Erro("", "");
+            help = dal.contarAnuncios();
+                if (help < 0) {
+                    erro.setTipo("Erro");
+                    erro.setMens("Problemas ao carregar o anuncio");
+                    out.print(new Gson().toJson(erro));
+                } else
+                    out.print(new Gson().toJson(help));
         }
     }
 

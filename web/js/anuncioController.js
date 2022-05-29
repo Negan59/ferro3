@@ -1,7 +1,16 @@
-function carregarAnuncios(){
-    var filtro=document.getElementById("filtro").value; // verifica o filtro
-    const URL_TO_FETCH='consultaranuncio?filtro='+filtro;
-       
+function carregarAnuncios(inicio){
+    var verifica = document.getElementById("filtro");
+    let URL_TO_FETCH = ""
+    paginacao()
+    if(verifica !== null){
+        var filtro=document.getElementById("filtro").value; // verifica o filtro
+        URL_TO_FETCH='consultaranuncio?filtro='+filtro+'&inicio='+inicio;
+    }
+    else{
+        URL_TO_FETCH = 'consultar5anuncios';
+        document.getElementById('carregaBotao').innerHTML = "";
+    }
+    window.alert(URL_TO_FETCH)
     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -183,3 +192,27 @@ function Categoria()
     }).catch (function(err) {console.error(err);});
 }
 
+function paginacao(){
+    const URL_TO_FETCH='contaranuncios';
+    let anuncios = 0
+    let pagina = ""
+    window.alert("teste")
+    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    {
+        response.json().then(function(result)  //response é um promisse
+        {
+            console.log("resultado - "+result)
+            localStorage.setItem("resultado",result);
+        });
+    }).catch (function(err) {console.error(err);});
+    anuncios = localStorage.getItem("resultado")
+    pagina+=`<ul class="pagination">`
+     let qtnd = Math.round(anuncios%3)
+     for(let i = 1;i<=qtnd+1;i++){
+         pagina+=`<li class="page-item"><a class="page-link" onclick="carregarAnuncios(${i})">${i}</a></li>`;
+     }
+    
+    pagina+=`</ul>`
+    console.log(pagina)
+    document.getElementById('paginacao').innerHTML = pagina;
+}

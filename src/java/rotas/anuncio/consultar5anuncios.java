@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rotas.anuncio;
 
 import bd.dal.DALAnuncio;
@@ -18,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.JWTTokenProvider;
 
-@WebServlet(name = "consultaranuncio", urlPatterns = {"/consultaranuncio"})
+@WebServlet(name = "consultar5anuncios", urlPatterns = {"/consultar5anuncios"})
+public class consultar5anuncios extends HttpServlet {
 
-public class consultaranuncio extends HttpServlet {
-    public String buscaAnuncios(String filtro,int inicio) {
+    public String buscaAnuncios() {
         String res = "";
-        ArrayList<Anuncio> anu = new DALAnuncio().getAnuncioAprovado(filtro,inicio);
+        ArrayList<Anuncio> anu = new DALAnuncio().get5anuncios();
         Gson gson = new Gson();
         res = gson.toJson(anu);
         return res;
@@ -32,16 +28,11 @@ public class consultaranuncio extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String usu=request.getParameter("usuario");
-        int inicio = Integer.parseInt(request.getParameter("inicio"));
         String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
-        System.out.println(valida);
         try (PrintWriter out = response.getWriter()) {
-            String filtro = request.getParameter("filtro");
-            if("ok".equals(valida)){
-                if (!filtro.isEmpty())
-                    filtro = "upper(conteudo) like '%" + filtro.toUpperCase() + "%'";
-                response.getWriter().print(buscaAnuncios(filtro,inicio));
+            if(valida == "ok"){
+                response.getWriter().print(buscaAnuncios());
             }
             else{
                 response.getWriter().print("não autorizado");
