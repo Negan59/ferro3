@@ -102,7 +102,7 @@ async function GravaUsuario()
         return response.text();
     }).then(function (retorno) {
         console.log(retorno)
-        window.alert("para")
+        //window.alert("para")
         // result recebe a resposta do módulo dinâmico
         if (retorno.startsWith('Erro')) // problemas ao alterar/gravar
         {
@@ -122,6 +122,7 @@ async function GravaUsuario()
 
 async function AlteraUsuario(documento)
 {   
+    console.log(data);
     let url = "buscarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
@@ -152,8 +153,11 @@ async function AlteraUsuario(documento)
     }).catch (function(err) {console.error(err);});
 }
 
+
 async function ApagarUsuario(documento)
-{   console.log(documento);
+{  
+
+    if (window.confirm("Deseja apagar o usuário?")){
     let url = "apagarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
@@ -167,9 +171,14 @@ async function ApagarUsuario(documento)
               document.getElementById('erromsg').innerHTML = result.mens;
           }
           else
+          {
               MostraUsuarios();
+              alert("Usuário apagado.");
+          }
+              
       });
     }).catch (function(err) {console.error(err);});
+    }
 }
 
 async function MostraCategorias()
@@ -228,6 +237,7 @@ async function GravaCategoria()
 
 async function ApagarCategoria(id)
 {   
+    if (window.confirm("Deseja apagar a categoria?")){
     let url = "apagarcategoria?id=" + id+'&token='+localStorage.getItem("token");
     console.log(url)
     await fetch(url,{method:'get'/*opcional*/}).then(function(response)
@@ -241,9 +251,14 @@ async function ApagarCategoria(id)
               document.getElementById('erromsg').innerHTML = result.mens;
           }
           else
+          {
               MostraCategorias();
+              alert("Categoria apagada.");
+          }
+              
       });
     }).catch (function(err) {console.error(err);});
+    }
 }
 
 async function AlterarCategoria(id)

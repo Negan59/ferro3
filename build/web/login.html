@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="js/indexcontroller.js" type="text/javascript"></script>
-        <title>Mercado Fipp</title>
+        <title>Cadastro usuários</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/jquery.maskedinput.min.js"/></script>
+        <script src="js/indexcontroller.js" type="text/javascript"></script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script src="js/validacao.js" type="text/javascript"></script>
+        
+        <nav class="navbar navbar-expand-lg bg-light">
+            
+        <div class="container-fluid">
+            <div class="navbar-brand" style="vertical-align: middle">MercadoFipp
+
+            </div>
+            <a class="navbar-brand" href="index.html">
+                <img src="https://i.imgur.com/N4rg03m.png" alt="" width="80" height="80" class="d-inline-block align-text-top">
+            </a>
+
+        </div>
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        
+                    </li>
+
+                </ul>
+                <div class="loginContainer">
+                    <div class="login-userimg" href="login.html">
+                        <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário"/>
+                        Login provisório
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
         <style>
        body {font-family: Arial, Helvetica, sans-serif;}
    
@@ -33,6 +74,8 @@
         
         .container {
             padding: 16px;
+            ustify-content: center; 
+            align-items: center; 
           }
           
         span.psw {
@@ -65,55 +108,69 @@
           
         </style>
     </head>
-    <body>
-        <h2>Login</h2>
+    <body style="margin-bottom: 32px;">
+    <div class="container">
+        <div>
+            <h2>Login</h2>
 
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-<p>não tem cadastro? <a href="telaCadastroUsuario.html">cadastre-se</a></p>
+            <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+            <p>não tem cadastro? <a href="telaCadastroUsuario.html">cadastre-se</a></p>
 
-<div id="id01" class="modal">
-  
-    <form id="fdados" class="modal-content animate" method="post">
-        <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
+            <div id="id01" class="modal">
+
+                <form id="fdados" class="modal-content animate" method="post">
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
+                    </div>
+
+                    <div class="container">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="usuario" required>
+
+                        <label for="psw"><b>Password</b></label>
+                        <br>
+                        <a href="telaRecuperarSenha.html">Esqueceu a senha?</a>
+                        <input type="password" placeholder="Enter Password" name="senha" required>   
+                    </div>
+                </form> 
+
+                  <button onclick="autenticar()">Login</button>
+                  <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                  </label>
+
+
+                <div class="container" style="background-color:#f1f1f1">
+                  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                  <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+
+                </div>
+
+                <script>
+                // Get the modal
+                var modal = document.getElementById('id01');
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+                </script>
         </div>
-
-        <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="usuario" required>
-
-            <label for="psw"><b>Password</b></label>
-            <br>
-            <a href="telaRecuperarSenha.html">Esqueceu a senha?</a>
-            <input type="password" placeholder="Enter Password" name="senha" required>   
-        </div>
-    </form> 
-
-      <button onclick="autenticar()">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
-
-    </div>
-       
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
     </body>
+    <footer>
+        <br><br><br>
+        <div class="card text-center">
+            <div class="card-header">
+                Guilherme - Luana - Marina
+            </div>
+            <div class="card-footer text-muted">
+                2022
+            </div>
+        </div>
+    </footer>
 </html>
