@@ -60,7 +60,11 @@ async function carregarAnuncios(inicio){
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div></div><br>
+    </div><div id="mensagem">
+                <p>
+                <button onclick="pergunta(${anuncio.id})"  class="form-control  mb-2 mr-sm-2 btn btn-primary">Perguntas e respostas</button>
+            </p>
+           </div></div><br>
                 
         `;
             i++;
@@ -69,6 +73,59 @@ async function carregarAnuncios(inicio){
         });
     }).catch (function(err) {console.error(err);});
     
+}
+
+async function pergunta(id){
+    const URL_TO_FETCH='consultarmensagem?id='+id+'&token='+localStorage.getItem("token");
+    console.log(URL_TO_FETCH)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    {
+        response.json().then(function(result)  //response é um promisse
+        {
+            //let resultjson=JSON.parse(result);
+            // result contém a resposta do módulo dinâmico
+            let tbody="";
+            for (let mensagem of result)
+            {
+                tbody+=`<div class="card-header">
+                    Pergunta
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <p>${mensagem.conteudo}</p>
+                  </blockquote>
+                </div>`;
+                resposta(mensagem.id,id)
+            }
+            document.getElementById('perguntas').innerHTML = tbody;
+        });
+    }).catch (function(err) {console.error(err);});
+}
+
+async function resposta(cod,id){
+    const URL_TO_FETCH='pegarrespostas?id='+id+'&token='+localStorage.getItem("token")+'&cod=' +cod;
+    console.log(URL_TO_FETCH)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    {
+        response.json().then(function(result)  //response é um promisse
+        {
+            //let resultjson=JSON.parse(result);
+            // result contém a resposta do módulo dinâmico
+            let tbody="";
+            for (let mensagem of result)
+            {
+                tbody+=`<div class="card-header" style="border:1px">
+                    Resposta
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <p>${mensagem.conteudo}</p>
+                  </blockquote>
+                </div>`;
+            }
+            document.getElementById('respostas').innerHTML = tbody;
+        });
+    }).catch (function(err) {console.error(err);});
 }
 
 async function gravaAnuncio(){
@@ -158,24 +215,15 @@ async function anuncioCategoria(id){
                     <img src="${anuncio.foto3}" class="d-block w-100" alt="${anuncio.foto3}">
                 </div>
             </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-        </div>
-    <div style="text-align: center;font-size: 48px">${anuncio.titulo}</div>
-    <div class="container">
-                Teste
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="cadastroUsuario.html">Usuarios</a></li>
-            <li><a class="dropdown-item" href="cadastroCategoria.html">Categorias</a></li>
-        </ul>
-    </div>
-    </div><br>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div></div><br>
                 
         `;
             i++;

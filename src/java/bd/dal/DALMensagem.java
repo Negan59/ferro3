@@ -37,7 +37,7 @@ public class DALMensagem {
         sql = sql.replace("$2", mens.getUsuario().getDocumento());
         sql = sql.replace("$3", mens.getConteudo());
         sql = sql.replace("$4", ""+mens.getData());
-        sql = sql.replace("$5", ""+mens.getMens().getId());
+        sql = sql.replace("$5", ""+mens.getMens());
         Conexao con = new Conexao();
         boolean flag = con.manipular(sql);
         con.fecharConexao();
@@ -66,12 +66,9 @@ public class DALMensagem {
         return mens;
     }
     
-       public ArrayList<Mensagem> getMensagem(String filtro) {
+       public ArrayList<Mensagem> getPergunta(int id) {
         ArrayList<Mensagem> lista = new ArrayList();
-        String sql = "select * from mensagem";
-        if (!filtro.isEmpty())
-            sql += " where " + filtro;
-        sql += " order by id";
+        String sql = "select * from mensagem where id_mensagem isnull and id_anuncio = "+id;
         Conexao con = new Conexao();
         ResultSet rs = con.consultar(sql);
         try {
@@ -84,4 +81,21 @@ public class DALMensagem {
         con.fecharConexao();
         return lista;
     }
+       public ArrayList<Mensagem> getResposta(int cod,int id) {
+        ArrayList<Mensagem> lista = new ArrayList();
+        String sql = "select * from mensagem where id_mensagem = "+cod+" and id_anuncio = "+id;
+        System.out.println(sql);
+        Conexao con = new Conexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                lista.add(
+                        new Mensagem(rs.getInt("id"),new DALAnuncio().getAnuncio(rs.getInt("id_anuncio")),new DALUsuario().getUsuarioUnico(rs.getString("doc_usuario")), rs.getString("conteudo"),rs.getDate("data").toLocalDate(),new DALMensagem().getMensagem(rs.getInt("id_mensagem"))));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.fecharConexao();
+        return lista;
+    }
+       
 }
