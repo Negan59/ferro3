@@ -89,7 +89,8 @@ public class DALAnuncio {
     
     public ArrayList<Anuncio> getAnuncioAprovado(String filtro, int inicio) {
         ArrayList<Anuncio> lista = new ArrayList();
-        String sql = "select * from anuncio where status LIKE 'A' limit "+(inicio + 2)+" offset "+(inicio-1);
+        inicio = (inicio-1)*3;
+        String sql = "select * from anuncio where status LIKE 'A' limit "+(inicio + 3)+" offset "+(inicio);
         if (!filtro.isEmpty())
             sql += "and "+filtro ;
         //sql += " order by id";
@@ -110,7 +111,7 @@ public class DALAnuncio {
     
     public ArrayList<Anuncio> getAnuncioUsuario(String doc) {
         ArrayList<Anuncio> lista = new ArrayList();
-        String sql = "select * from anuncio where doc_usuario LIKE "+doc;
+        String sql = "select * from anuncio where doc_usuario LIKE "+"'"+doc+"'";
         Conexao con = new Conexao();
         ResultSet rs = con.consultar(sql);
         try {

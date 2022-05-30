@@ -1,10 +1,10 @@
-function autenticar() {
+async function autenticar() {
     const URL_TO_FETCH = 'Autenticar';
     const data = new URLSearchParams();
     for (const pair of new FormData(document.getElementById('fdados'))) {
         data.append(pair[0], pair[1]);
     }
-    fetch(URL_TO_FETCH, {
+    await fetch(URL_TO_FETCH, {
         method: 'post',
         body: data})
             .then(function (response) {
@@ -13,20 +13,40 @@ function autenticar() {
             .then(function (text) { 
                 alert(text);
                 localStorage.setItem("token", text);
-               
+                
             })
             .catch(function (error) {
                 console.error(error);
             });
+            
+            const URL_TO_FETCH2='buscanome?token='+ localStorage.getItem("token");
+           await fetch(URL_TO_FETCH2, {method:'get'/*opcional*/}).then(function(response)
+       {
+           response.json().then(function(result)  //response é um promisse
+           {
+               console.log(result)
+               localStorage.setItem("nome",result)
+           });
+       }).catch (function(err) {console.error(err);});
+       const URL_TO_FETCH3='buscatipo?token='+ localStorage.getItem("token");
+       await fetch(URL_TO_FETCH3, {method:'get'/*opcional*/}).then(function(response)
+       {
+           response.json().then(function(result)  //response é um promisse
+           {
+               console.log(result)
+               localStorage.setItem("tipo",result)
+           });
+       }).catch (function(err) {console.error(err);});
+            window.location.href = "index.html"
 
 
 }
 
-function listarcategorias()
+async function listarcategorias()
 {
     let token = localStorage.getItem("token"); //pegar o token
     const URL_TO_FETCH = 'testarAcesso';
-    fetch(URL_TO_FETCH, {method: 'POST', headers: {'Authorization': `${token}`, }})
+    await fetch(URL_TO_FETCH, {method: 'POST', headers: {'Authorization': `${token}`, }})
             .then(function (response)
             {
                 response.text()
@@ -42,12 +62,12 @@ function listarcategorias()
 
 }
 
-function MostraUsuarios()
+async function MostraUsuarios()
 {   
     var filtro=document.getElementById("filtro").value; // verifica o filtro
     const URL_TO_FETCH='consultarusuario?filtro='+filtro+'&token='+localStorage.getItem("token");
        
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -66,7 +86,7 @@ function MostraUsuarios()
     }).catch (function(err) {console.error(err);});
 }
 
-function GravaUsuario()
+async function GravaUsuario()
 {
     event.preventDefault(); // evita refresh da tela
 
@@ -77,7 +97,7 @@ function GravaUsuario()
         data.append(pair[0], pair[1]);
     }
     console.log(data);
-    fetch(URL_TO_FETCH, { method: 'post', body: data 
+    await fetch(URL_TO_FETCH, { method: 'post', body: data 
     }).then(function (response) {
         return response.text();
     }).then(function (retorno) {
@@ -100,10 +120,10 @@ function GravaUsuario()
       
 }
 
-function AlteraUsuario(documento)
+async function AlteraUsuario(documento)
 {   
     let url = "buscarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
-    fetch(url,{method:'get'/*opcional*/}).then(function(response)
+    await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -132,10 +152,10 @@ function AlteraUsuario(documento)
     }).catch (function(err) {console.error(err);});
 }
 
-function ApagarUsuario(documento)
+async function ApagarUsuario(documento)
 {   console.log(documento);
     let url = "apagarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
-    fetch(url,{method:'get'/*opcional*/}).then(function(response)
+    await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
       response.json().then(function(result)  //response é um promisse
       {
@@ -152,12 +172,12 @@ function ApagarUsuario(documento)
     }).catch (function(err) {console.error(err);});
 }
 
-function MostraCategorias()
+async function MostraCategorias()
 {   
     var filtro=document.getElementById("filtro").value; // verifica o filtro
     const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -175,7 +195,7 @@ function MostraCategorias()
     }).catch (function(err) {console.error(err);});
 }
 
-function GravaCategoria()
+async function GravaCategoria()
 {
     //event.preventDefault(); // evita refresh da tela
 
@@ -185,7 +205,7 @@ function GravaCategoria()
     for (const pair of new FormData(document.getElementById('fcategorias'))) {
         data.append(pair[0], pair[1]);
     }
-    fetch(URL_TO_FETCH, { method: 'post', body: data 
+    await fetch(URL_TO_FETCH, { method: 'post', body: data 
     }).then(function (response) {
         return response.text();
     }).then(function (retorno) {
@@ -206,11 +226,11 @@ function GravaCategoria()
       
 }
 
-function ApagarCategoria(id)
+async function ApagarCategoria(id)
 {   
     let url = "apagarcategoria?id=" + id+'&token='+localStorage.getItem("token");
     console.log(url)
-    fetch(url,{method:'get'/*opcional*/}).then(function(response)
+    await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
       response.json().then(function(result)  //response é um promisse
       {
@@ -226,10 +246,10 @@ function ApagarCategoria(id)
     }).catch (function(err) {console.error(err);});
 }
 
-function AlterarCategoria(id)
+async function AlterarCategoria(id)
 {   
     let url = "buscarcategoria?id=" + id+'&token='+localStorage.getItem("token");
-    fetch(url,{method:'get'/*opcional*/}).then(function(response)
+    await fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {

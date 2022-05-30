@@ -1,20 +1,14 @@
 function geraCabecalho(){
     let header = "";
     let tipo = ""
-     const URL_TO_FETCH='buscatipo?token='+ localStorage.getItem("token");
-     header +=   `<div class="collapse navbar-collapse" id="navbarSupportedContent" >
+    
+     if(localStorage.getItem("token") !== null){
+          header +=   `<div class="collapse navbar-collapse" id="navbarSupportedContent" >
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>`;
-     if(localStorage.getItem("token") !== null){
-        fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
-       {
-           response.json().then(function(result)  //response é um promisse
-           {
-               localStorage("tipo",result)
-           });
-       }).catch (function(err) {console.error(err);});
+        
                 if(localStorage.getItem("tipo") === "admin"){
                    header+= `<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,10 +20,13 @@ function geraCabecalho(){
                         </ul>
                     </li>`
                 }
-                if(tipo === "admin" || localStorage.getItem("tipo") === "vendedor"){
+                if(localStorage.getItem("tipo") === "vendedor"){
                     header+= `<li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="meusAnuncios.html">Meus anúncios</a>
                     </li>`;
+                    
+                }
+                if(window.location.href === "index.html" && localStorage.getItem("tipo") === "vendedor"){
                     posta()
                 }
                 if(localStorage.getItem("tipo") === "admin"){
@@ -58,9 +55,14 @@ function posta(){
         document.getElementById('botaopostar').innerHTML = botaopostar;
 }
 
+function logout(){
+    window.alert("delogado");
+    localStorage.clear();
+}
+
 function carregarLogin(){
     let login = ""
-    const URL_TO_FETCH='buscanome?token='+ localStorage.getItem("token");
+    
     if(localStorage.getItem("token") === null){
         login+=`<div class="login-userimg" >
                         <a href="login.html">
@@ -70,15 +72,9 @@ function carregarLogin(){
                     </div>`
     }
     else{
-        fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
-       {
-           response.json().then(function(result)  //response é um promisse
-           {
-               localStorage("nome",result)
-           });
-       }).catch (function(err) {console.error(err);});
+        
        login+=`<div class="login-userimg" >
-                        <a href="login.html">
+                        <a onclick="logout()" href="login.html">
                         <img src="https://i.ibb.co/RDNW9qJ/icons8-usu-rio-50.png" alt="Foto de usuário" />
                         ${localStorage.getItem("nome")}
                         </a>
