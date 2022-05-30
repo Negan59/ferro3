@@ -1,17 +1,21 @@
-function carregarAnuncios(inicio){
+async function carregarAnuncios(inicio){
     var verifica = document.getElementById("filtro");
     let URL_TO_FETCH = ""
-    paginacao()
-    if(verifica !== null){
+    
+    if(localStorage.getItem("token")!==null){
+        paginacao()
         var filtro=document.getElementById("filtro").value; // verifica o filtro
-        URL_TO_FETCH='consultaranuncio?filtro='+filtro+'&inicio='+localStorage.getItem("resultado")+'&token='+localStorage.getItem("token");
+        if(inicio === undefined){
+            inicio = 1;
+        }
+        URL_TO_FETCH='consultaranuncio?filtro='+filtro+'&inicio='+inicio+'&token='+localStorage.getItem("token");
     }
     else{
         URL_TO_FETCH = 'consultar5anuncios';
         document.getElementById('carregaBotao').innerHTML = "";
         document.getElementById('paginacao').innerHTML = "";
     }
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -19,13 +23,14 @@ function carregarAnuncios(inicio){
             // result contém a resposta do módulo dinâmico
             let monta="";
             let i = 0;
+            console.log(result[0])
             for (let anuncio of result)
             {
                 console.log(anuncio);
                 monta+=`<div class="card mx-auto" style="width:40rem;border-width: 8px;border-color: #00BFFF">
                 <div style="text-align: center;font-size: 48px">${anuncio.titulo}</div>
                         <div style="text-align: center;font-size: 25px">${anuncio.conteudo}</div>
-                        <div style="text-align: center;font-size: 20px">${anuncio.dataPostagem.day}/${anuncio.dataPostagem.month}/${anuncio.dataPostagem.year}</div>
+                        
                         <div style="text-align: center;font-size: 25px;color: blue">${anuncio.produto}</div>`;
                         
                 monta+=`<div style="text-align: center;font-size: 25px;color: blue">Vendedor : ${anuncio.usuario.nome}</div>
@@ -62,10 +67,10 @@ function carregarAnuncios(inicio){
             document.getElementById('anuncio').innerHTML = monta;
         });
     }).catch (function(err) {console.error(err);});
-    Categoria();
+    
 }
 
-function gravaAnuncio(){
+async function gravaAnuncio(){
     const URL_TO_FETCH = 'gravaranuncio?token='+localStorage.getItem("token");
     console.log(URL_TO_FETCH)
     const data = new URLSearchParams();
@@ -73,7 +78,7 @@ function gravaAnuncio(){
         data.append(pair[0], pair[1]);
     }
     console.log(data);
-    fetch(URL_TO_FETCH, { method: 'post', body: data 
+    await fetch(URL_TO_FETCH, { method: 'post', body: data 
     }).then(function (response) {
         return response.text();
     }).then(function (retorno) {
@@ -94,12 +99,12 @@ function gravaAnuncio(){
     });
 }
 
-function MostraCategorias()
+async function MostraCategorias()
 {   
     var filtro=""; // verifica o filtro
     const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -115,9 +120,9 @@ function MostraCategorias()
     }).catch (function(err) {console.error(err);});
 }
 
-function anuncioCategoria(id){
+async function anuncioCategoria(id){
      const URL_TO_FETCH='consultaranunciocategoria?id='+id+'&token='+localStorage.getItem("token");
-     fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+     await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -170,12 +175,12 @@ function anuncioCategoria(id){
     }).catch (function(err) {console.error(err);});
 }
 
-function Categoria()
+async function Categoria()
 {   
     var filtro=""; // verifica o filtro
     const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
        
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
@@ -192,15 +197,15 @@ function Categoria()
     }).catch (function(err) {console.error(err);});
 }
 
-function paginacao(){
+async function paginacao(){
     const URL_TO_FETCH='contaranuncios';
     let anuncios = 0
     let pagina = ""
-    fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
+    await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
         {
-            console.log("resultado - "+result)
+            console.log(result)
             localStorage.setItem("resultado",result);
         });
     }).catch (function(err) {console.error(err);});

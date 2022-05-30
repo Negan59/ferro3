@@ -3,6 +3,7 @@ package rotas.anuncio;
 import bd.dal.DALAnuncio;
 import bd.entidades.Anuncio;
 import com.google.gson.Gson;
+import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ public class listaranuncio extends HttpServlet {
         String token=request.getParameter("token");
         String valida = JWTTokenProvider.validarToken(token);
         try (PrintWriter out = response.getWriter()) {
-            String documento = request.getParameter("doc_usuario");
+            Claims teste = new JWTTokenProvider().getAllClaimsFromToken(token);
             if(valida == "ok"){
-                response.getWriter().print(buscaAnuncios(documento));
+                response.getWriter().print(buscaAnuncios((String) teste.get("documento")));
             }
             else{
                 response.getWriter().print("não autorizado");

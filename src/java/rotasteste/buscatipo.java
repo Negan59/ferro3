@@ -1,5 +1,6 @@
 package rotasteste;
 
+import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +25,7 @@ public class buscatipo extends HttpServlet {
         try{
             Claims teste = new JWTTokenProvider().getAllClaimsFromToken(token);
             System.out.println(teste.get("documento"));
-            out.print(teste.get("tipo_usuario"));
+            out.print(new Gson().toJson(teste.get("tipo_usuario")));
         }catch(Exception e){
             out.print("Erro");
         }

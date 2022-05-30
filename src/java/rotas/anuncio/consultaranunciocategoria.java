@@ -34,7 +34,7 @@ public class consultaranunciocategoria extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             int id = Integer.parseInt(request.getParameter("id"));
             if(valida == "ok"){
-                response.getWriter().print(buscaAnuncios(id));
+                response.getWriter().print(new Gson().toJson(buscaAnuncios(id)));
             }
             else{
                 response.getWriter().print("não autorizado");

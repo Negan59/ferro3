@@ -9,7 +9,7 @@ function MostraAnuncios()
             //let resultjson=JSON.parse(result);
             // result contém a resposta do módulo dinâmico
             let tbody="";
-            console.log(result)
+            console.log("resultado",result)
             for (let anuncio of result)
             {
                 tbody+=`<tr><td>${anuncio.conteudo}</td><td>${anuncio.produto}</td><td>${anuncio.categoria.nome}</td><td>${anuncio.usuario.nome}</td>

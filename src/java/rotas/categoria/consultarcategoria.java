@@ -41,12 +41,12 @@ public class consultarcategoria extends HttpServlet {
             String filtro = request.getParameter("filtro");
             System.out.println(filtro);
             if(valida == "ok"){
-                if (!filtro.isEmpty() || filtro == null)
+                if (!filtro.isEmpty())
                     filtro = "upper(nome) like '%" + filtro.toUpperCase() + "%'";
                 response.getWriter().print(buscaCategorias(filtro));
             }
             else{
-                response.getWriter().print("não autorizado");
+                response.getWriter().print(new Gson().toJson("não autorizado"));
             }
         }
     }

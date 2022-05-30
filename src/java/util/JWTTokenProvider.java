@@ -41,6 +41,7 @@ public class JWTTokenProvider {
                         .parseClaimsJws(token).getSignature();
             } catch (Exception e) {
                 System.out.println(e);
+                res = "Erro";
             }
             return res;
         }

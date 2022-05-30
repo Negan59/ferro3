@@ -6,6 +6,7 @@ import bd.dal.DALUsuario;
 import bd.entidades.Anuncio;
 import bd.entidades.Categoria;
 import bd.entidades.Usuario;
+import io.jsonwebtoken.Claims;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,17 +36,18 @@ public class gravaranuncio extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String conteudo = request.getParameter("conteudo");
-        System.out.println(conteudo);
+        String token=request.getParameter("token");
         LocalDate data = LocalDate.now();
         String status = "R";
         String p = request.getParameter("produto");
         String t = request.getParameter("titulo");
-        Usuario u = new DALUsuario().getUsuarioUnico(request.getParameter("doc_usuario"));
+        Claims teste = new JWTTokenProvider().getAllClaimsFromToken(token);
+        Usuario u = new DALUsuario().getUsuarioUnico((String) teste.get("documento"));
         Categoria cat = new DALCategoria().getCategoria(Integer.parseInt(request.getParameter("categoria")));
         DALAnuncio dal = new DALAnuncio();
         String erro = "Sucesso";
         String usu=request.getParameter("usuario");
-        String token=request.getParameter("token");
+        
         String valida = JWTTokenProvider.validarToken(token);
         
         Anuncio anu = new Anuncio(conteudo, data, p, cat, "", "", "", status, u,t);
