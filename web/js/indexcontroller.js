@@ -133,7 +133,9 @@ function AlteraUsuario(documento)
 }
 
 function ApagarUsuario(documento)
-{   console.log(documento);
+{   
+    if (window.confirm("Deseja apagar o usuário?")){
+    console.log(documento);
     let url = "apagarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
@@ -147,9 +149,14 @@ function ApagarUsuario(documento)
               document.getElementById('erromsg').innerHTML = result.mens;
           }
           else
+          {
               MostraUsuarios();
+              alert("Usuário apagado.");
+          }
+              
       });
     }).catch (function(err) {console.error(err);});
+    }
 }
 
 function MostraCategorias()
@@ -208,6 +215,7 @@ function GravaCategoria()
 
 function ApagarCategoria(id)
 {   
+    if (window.confirm("Deseja apagar a categoria?")){
     let url = "apagarcategoria?id=" + id+'&token='+localStorage.getItem("token");
     console.log(url)
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
@@ -221,9 +229,14 @@ function ApagarCategoria(id)
               document.getElementById('erromsg').innerHTML = result.mens;
           }
           else
+          {
               MostraCategorias();
+              alert("Categoria apagada.");
+          }
+              
       });
     }).catch (function(err) {console.error(err);});
+    }
 }
 
 function AlterarCategoria(id)
