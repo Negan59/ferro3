@@ -43,15 +43,9 @@ public class DALUsuario {
         return flag;
     }
     
-    public boolean alteraE(Usuario u) {
-        String sql = "update usuario set genero = '$1', estado = '$2', nome = '$3',tipo_usuario = '$4',endereco = '$5', datanascimento = '$6',senha = '$7' where email like " + u.getEmail();
-        sql = sql.replace("$1", u.getGenero());
-        sql = sql.replace("$2", u.getEstado());
-        sql = sql.replace("$3", u.getNome());
-        sql = sql.replace("$4", u.getTipo_usuario());
-        sql = sql.replace("$5", u.getEndereco());
-        sql = sql.replace("$6", "" + u.getDataNascimento());
-        sql = sql.replace("$7",u.getSenha());
+    public boolean alteraE(String email, String senha) {
+        String sql = "update usuario set senha = '$1' where email like " + email;
+        sql = sql.replace("$1", senha);
         Conexao con = new Conexao();
         boolean flag = con.manipular(sql);
         con.fecharConexao();

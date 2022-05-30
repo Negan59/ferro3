@@ -82,7 +82,7 @@ function GravaUsuario()
         return response.text();
     }).then(function (retorno) {
         console.log(retorno)
-        window.alert("para")
+        //window.alert("para")
         // result recebe a resposta do módulo dinâmico
         if (retorno.startsWith('Erro')) // problemas ao alterar/gravar
         {
@@ -102,6 +102,7 @@ function GravaUsuario()
 
 function AlteraUsuario(documento)
 {   
+    console.log(data);
     let url = "buscarusuario?documento=" + documento+'&token='+localStorage.getItem("token");
     fetch(url,{method:'get'/*opcional*/}).then(function(response)
     {
