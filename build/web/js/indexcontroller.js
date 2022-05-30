@@ -244,6 +244,7 @@ async function ApagarCategoria(id)
     {
       response.json().then(function(result)  //response é um promisse
       {
+          
           if (result.tipo==="Erro")
           {
               //alert(result.mens);
@@ -259,6 +260,7 @@ async function ApagarCategoria(id)
       });
     }).catch (function(err) {console.error(err);});
     }
+    MostraCategorias();
 }
 
 async function AlterarCategoria(id)

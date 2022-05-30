@@ -44,7 +44,7 @@ public class DALUsuario {
     }
     
     public boolean alteraE(String email, String senha) {
-        String sql = "update usuario set senha = '$1' where email like " + email;
+        String sql = "update usuario set senha = '$1' where email like " +"'"+ email+"'";
         sql = sql.replace("$1", senha);
         Conexao con = new Conexao();
         boolean flag = con.manipular(sql);
