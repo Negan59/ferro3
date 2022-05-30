@@ -15,6 +15,7 @@ async function carregarAnuncios(inicio){
         document.getElementById('carregaBotao').innerHTML = "";
         document.getElementById('paginacao').innerHTML = "";
     }
+    console.log(URL_TO_FETCH)
     await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -146,17 +147,17 @@ async function anuncioCategoria(id){
                 <button type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active" style="max-height:30rem">
-                <img src="${anuncio.foto1}" class="d-block w-100" alt="${anuncio.foto1}">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="max-height:30rem">
+                    <img src="${anuncio.foto1}" class="d-block w-100" alt="${anuncio.foto1}">
+                </div>
+                <div class="carousel-item" style="max-height:30rem">
+                    <img src="${anuncio.foto2}" class="d-block w-100" alt="${anuncio.foto2}">
+                </div>
+                <div class="carousel-item" style="max-height:30rem">
+                    <img src="${anuncio.foto3}" class="d-block w-100" alt="${anuncio.foto3}">
+                </div>
             </div>
-            <div class="carousel-item" style="max-height:30rem">
-                <img src="${anuncio.foto2}" class="d-block w-100" alt="${anuncio.foto2}">
-            </div>
-            <div class="carousel-item" style="max-height:30rem">
-                <img src="${anuncio.foto3}" class="d-block w-100" alt="${anuncio.foto3}">
-            </div>
-        </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_${i}" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -165,7 +166,16 @@ async function anuncioCategoria(id){
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div></div><br>
+        </div>
+    <div style="text-align: center;font-size: 48px">${anuncio.titulo}</div>
+    <div class="container">
+                Teste
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="cadastroUsuario.html">Usuarios</a></li>
+            <li><a class="dropdown-item" href="cadastroCategoria.html">Categorias</a></li>
+        </ul>
+    </div>
+    </div><br>
                 
         `;
             i++;
@@ -179,7 +189,7 @@ async function Categoria()
 {   
     var filtro=""; // verifica o filtro
     const URL_TO_FETCH='consultarcategoria?filtro='+filtro+'&token='+localStorage.getItem("token");
-       
+    if(localStorage.getItem("token")!==null){
     await fetch(URL_TO_FETCH, {method:'get'/*opcional*/}).then(function(response)
     {
         response.json().then(function(result)  //response é um promisse
@@ -195,6 +205,9 @@ async function Categoria()
             document.getElementById('mcategoria').innerHTML = tbody;
         });
     }).catch (function(err) {console.error(err);});
+    }else{
+        document.getElementById('mcategoria').innerHTML = "";
+    }
 }
 
 async function paginacao(){
